@@ -1,0 +1,2 @@
+ngTagsInput-bower
+=================
