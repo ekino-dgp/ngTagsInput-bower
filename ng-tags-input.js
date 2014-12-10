@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v2.2.1-ekino
+ * ngTagsInput v2.2.1-ekino_2
  * http://mbenford.github.io/ngTagsInput
  *
  * Copyright (c) 2013-2014 Michael Benford
  * License: MIT
  *
- * Generated at 2014-12-02 15:53:04 +0100
+ * Generated at 2014-12-10 17:51:54 +0100
  */
 (function() {
 'use strict';
@@ -211,7 +211,7 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig", func
     }
 
     return {
-        restrict: 'E',
+        restrict: 'EA',
         require: 'ngModel',
         scope: {
             tags: '=ngModel',
@@ -527,7 +527,7 @@ tagsInput.directive('autoComplete', ["$document","$timeout","$sce","tagsInputCon
     }
 
     return {
-        restrict: 'E',
+        restrict: 'EA',
         require: '^tagsInput',
         scope: { source: '&' },
         templateUrl: 'ngTagsInput/auto-complete.html',
