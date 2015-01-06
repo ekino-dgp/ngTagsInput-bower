@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v2.2.1-ekino_2
+ * ngTagsInput v2.2.1-ekino_3
  * http://mbenford.github.io/ngTagsInput
  *
- * Copyright (c) 2013-2014 Michael Benford
+ * Copyright (c) 2013-2015 Michael Benford
  * License: MIT
  *
- * Generated at 2014-12-10 17:51:54 +0100
+ * Generated at 2015-01-06 14:34:28 +0100
  */
 (function() {
 'use strict';
@@ -305,14 +305,17 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig", func
                 })
                 .on('invalid-tag', function() {
                     scope.newTag.invalid = true;
+                    setElementValidity();
                 })
                 .on('input-change', function() {
                     tagList.selected = null;
                     scope.newTag.invalid = null;
+                    ngModelCtrl.$setValidity('leftoverText', true);
                     scope.onTagInput({data:scope.newTag.text});
                     ngModelCtrl._leftoverText = scope.newTag.text;
                 })
                 .on('input-focus', function() {
+                    scope.newTag.invalid = null;
                     ngModelCtrl.$setValidity('leftoverText', true);
                 })
                 .on('input-blur', function() {
