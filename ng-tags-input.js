@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v2.2.1-ekino_3
+ * ngTagsInput v2.2.1-ekino_4
  * http://mbenford.github.io/ngTagsInput
  *
  * Copyright (c) 2013-2015 Michael Benford
  * License: MIT
  *
- * Generated at 2015-01-06 14:34:28 +0100
+ * Generated at 2015-03-27 13:47:43 +0100
  */
 (function() {
 'use strict';
@@ -63,9 +63,7 @@ function makeObjectArray(array, key) {
 function findInObjectArray(array, obj, key) {
     var item = null;
     for (var i = 0; i < array.length; i++) {
-        // I'm aware of the internationalization issues regarding toLowerCase()
-        // but I couldn't come up with a better solution right now
-        if (safeToString(array[i][key]).toLowerCase() === safeToString(obj[key]).toLowerCase()) {
+        if (safeToString(array[i][key]) === safeToString(obj[key])) {
             item = array[i];
             break;
         }
@@ -152,7 +150,11 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig", func
                 tagText.length >= options.minLength &&
                 tagText.length <= options.maxLength &&
                 options.allowedTagsPattern.test(tagText) &&
-                !findInObjectArray(self.items, tag, options.displayProperty);
+                !self.tagAlreadyAdded(tag);
+        };
+
+        self.tagAlreadyAdded = function(tag) {
+            return findInObjectArray(self.items, tag, options.displayProperty) !== null;
         };
 
         self.items = [];
@@ -290,6 +292,7 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig", func
                 ngModelCtrl.$setValidity('maxTags', scope.tags.length <= options.maxTags);
                 ngModelCtrl.$setValidity('minTags', scope.tags.length >= options.minTags);
                 ngModelCtrl.$setValidity('leftoverText', options.allowLeftoverText ? true : !scope.newTag.text);
+                ngModelCtrl.$setValidity('alreadyAdded', scope.newTag.text !== '' ? !tagList.tagAlreadyAdded(scope.newTag) : true);
             };
 
             events
